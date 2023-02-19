@@ -1,0 +1,3 @@
+:start
+C:\steamcmd\steamcmd.exe +login anonymous +force_install_dir C:\Valheim\ +app_update 896660 +quit
+:juststart
