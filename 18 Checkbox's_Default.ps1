@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Windows.Forms
 
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "Checkboxes Example"
@@ -14,6 +14,13 @@ $checkbox1.Text = "Checkbox 1"
 $checkbox1.Location = New-Object System.Drawing.Point(20, 20)
 $form.Controls.Add($checkbox1)
 $checkboxes += $checkbox1
+
+# Define CB 1 function
+$checkbox1.Add_Click({
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip")
+})
+
 
 $checkbox2 = New-Object System.Windows.Forms.CheckBox
 $checkbox2.Text = "Checkbox 2"
