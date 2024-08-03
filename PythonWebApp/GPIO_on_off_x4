@@ -1,0 +1,48 @@
+import os
+
+#!/usr/bin/env python3
+
+import RPi.GPIO as GPIO
+
+
+def setupGPIO():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(23, GPIO.OUT)
+    GPIO.setup(24, GPIO.OUT)
+    GPIO.setup(25, GPIO.OUT)
+
+
+def printTemperature():
+    temp = os.popen("/opt/vc/bin/vcgencmd measure_temp").read()
+    print("GPU temperature is {}".format(temp[5:]))
+
+
+def controlLED():
+    try:
+        while True:
+            user_input = input(
+                "Turn LED On or Off with 1 or 0 (Ctrl-C to exit): ")
+            if user_input == "1":
+                GPIO.output(18, GPIO.HIGH)
+                GPIO.output(23, GPIO.HIGH)
+                GPIO.output(24, GPIO.HIGH)
+                GPIO.output(25, GPIO.HIGH)
+                print("LEDs are on")
+            elif user_input == "0":
+                GPIO.output(18, GPIO.LOW)
+                GPIO.output(23, GPIO.LOW)
+                GPIO.output(24, GPIO.LOW)
+                GPIO.output(25, GPIO.LOW)
+                print("LEDs are off")
+    except KeyboardInterrupt:
+        GPIO.cleanup()
+        print("")
+
+
+setupGPIO()
+printTemperature()
+
+controlLED()
